@@ -1,7 +1,10 @@
 package com.example.demo.Model.DAO;
 
 
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
 import java.util.List;
 
 @Entity
@@ -14,6 +17,7 @@ public class Department {
     private int id;
 
     @Column(name="name_departments")
+    @NotNull
     private String name;
 
     //@OneToMany(mappedBy = "department", fetch = FetchType.LAZY)

@@ -4,9 +4,7 @@ import com.example.demo.Model.DAO.Department;
 import com.example.demo.Model.DAO.Employee;
 import com.example.demo.Model.DAO.Job;
 import com.example.demo.Model.DTO.EmployeeDto;
-import com.example.demo.Repository.DepartmentRepository;
 import com.example.demo.Repository.EmployeeRepository;
-import com.example.demo.Repository.JobRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,32 +17,12 @@ import java.util.List;
 public class EmployeeService {
 
     @Autowired
-    private JobRepository jobRepository;
-
-    @Autowired
-    private DepartmentRepository departmentRepository;
-
-    @Autowired
     private EmployeeRepository employeeRepository;
-
-    public Department findDepartmentById(int id){
-
-        return this.departmentRepository.findById(id).get();
-    }
-    public Job findJobById(int id){
-        return this.jobRepository.findById(id).get();
-    }
 
     public Employee findEmployeeById(int id){
         return this.employeeRepository.findById(id).get();
     }
 
-    public List<Job> findAllJobs(){
-        return this.jobRepository.findAll();
-    }
-    public List<Department> findAllDepartments(){
-        return this.departmentRepository.findAll();
-    }
     public List<Employee> findAllEmployee(){
         return this.employeeRepository.findAll();
     }
@@ -79,39 +57,21 @@ public class EmployeeService {
         return employeeDtoList;
     }
 
-    public Job addJob(Job job){
-        return this.jobRepository.save(job);
-    }
-
-    public Department addDepartment(Department department){
-        return this.departmentRepository.save(department);
-    }
-
     public Employee saveEmployee(Employee employee, int jobCategory, int department){
-        employee.setJobCategory(findJobById(jobCategory));
-        employee.setDepartment(findDepartmentById(department));
+        DepartmentService departmentService = new DepartmentService();
+        JobService jobService = new JobService();
+        employee.setJobCategory(jobService.findJobById(jobCategory));
+        employee.setDepartment(departmentService.findDepartmentById(department));
         return this.employeeRepository.save(employee);
     }
 
-    public Job updateJob(int id, String name){
-        Job job = findJobById(id);
-        job.setName(name);
-        jobRepository.save(job);
-        return job;
-    }
-
-    public Department updateDepartment(int id, String name){
-        Department department = findDepartmentById(id);
-        department.setName(name);
-        departmentRepository.save(department);
-        return department;
-    }
-
     public Employee updateEmployee(int id, Employee employee, int jobId, int departmentId){
+        DepartmentService departmentService = new DepartmentService();
+        JobService jobService = new JobService();
         Employee employee1 = findEmployeeById(id);
         employee1 = employee;
-        employee1.setJobCategory(findJobById(jobId));
-        employee1.setDepartment(findDepartmentById(departmentId));
+        employee1.setJobCategory(jobService.findJobById(jobId));
+        employee1.setDepartment(departmentService.findDepartmentById(departmentId));
         employeeRepository.save(employee1);
         return employee1;
     }
@@ -138,15 +98,17 @@ public class EmployeeService {
     }
 
     public Employee updateEmployeeJob(int id, int jobId){
+        JobService jobService = new JobService();
         Employee employee = findEmployeeById(id);
-        employee.setJobCategory(findJobById(jobId));
+        employee.setJobCategory(jobService.findJobById(jobId));
         employeeRepository.save(employee);
         return employee;
     }
 
     public Employee updateEmployeeDepartment(int id, int departmentId){
+        DepartmentService departmentService = new DepartmentService();
         Employee employee = findEmployeeById(id);
-        employee.setDepartment(findDepartmentById(id));
+        employee.setDepartment(departmentService.findDepartmentById(id));
         employeeRepository.save(employee);
         return employee;
     }
@@ -242,18 +204,8 @@ public class EmployeeService {
         return employee;
     }
 
-    public void deleteDepartmentById(int id){
-        this.departmentRepository.deleteById(id);
-    }
-
-    public void deleteJobById(int id){
-        this.jobRepository.deleteById(id);
-    }
     public void deleteEmployeeById(int id){
         this.employeeRepository.deleteById(id);
     }
-
-
-
 
 }

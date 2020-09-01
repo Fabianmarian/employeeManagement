@@ -1,7 +1,9 @@
 package com.example.demo.Model.DAO;
 
+
 import javax.persistence.*;
-import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="job_categories")
@@ -10,9 +12,12 @@ public class Job {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
+    @NotNull
     private int id;
 
     @Column(name = "name")
+    @NotNull
+    @Valid
     private String name;
 
     //@OneToMany(mappedBy = "jobCategory", fetch = FetchType.LAZY)

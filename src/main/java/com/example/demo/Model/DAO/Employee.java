@@ -3,8 +3,10 @@ package com.example.demo.Model.DAO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Value;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -17,20 +19,23 @@ public class Employee {
     private int id;
 
     @Column(name = "firstName")
+    @NotNull
     private String firstName;
 
     @Column(name = "lastName")
+    @NotNull
     private String lastName;
 
    // @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "jobCategoryId")
-    //@Column(name = "jobCategoryId")
+    @NotNull
     private Job jobCategory;
 
     //@JsonIgnore
     @ManyToOne
     @JoinColumn(name = "departmentId")
+    @NotNull
     private Department department;
 
     @Column(name = "isManager")
@@ -38,6 +43,7 @@ public class Employee {
 
     @Column(name="startDate")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @NotNull
     private LocalDate startDate;
 
     @Column(name = "endDate")
@@ -47,21 +53,26 @@ public class Employee {
     @Column(name = "isActive")
     private boolean isActive;
 
+    @NotNull
     private String address;
 
     @Column(name = "CP")
+    @NotNull
     private int postalCode;
 
+    @NotNull
     private String telephone;
 
     private String email;
 
     @Column(name="birthday")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @NotNull
     private LocalDate birthday;
 
     private int noChildern;
 
+    @NotNull
     private double salary;
 
     private String studies;
