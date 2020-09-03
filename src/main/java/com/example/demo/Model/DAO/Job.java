@@ -4,6 +4,7 @@ package com.example.demo.Model.DAO;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="job_categories")
@@ -12,12 +13,11 @@ public class Job {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    @NotNull
     private int id;
 
     @Column(name = "name")
     @NotNull
-    @Valid
+    @Size(min=1)
     private String name;
 
     //@OneToMany(mappedBy = "jobCategory", fetch = FetchType.LAZY)

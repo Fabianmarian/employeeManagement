@@ -4,7 +4,9 @@ import com.example.demo.Model.DAO.Department;
 import com.example.demo.Model.DAO.Employee;
 import com.example.demo.Model.DAO.Job;
 import com.example.demo.Model.DTO.EmployeeDto;
+import com.example.demo.Repository.DepartmentRepository;
 import com.example.demo.Repository.EmployeeRepository;
+import com.example.demo.Repository.JobRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,18 +19,25 @@ import java.util.List;
 public class EmployeeService {
 
     @Autowired
+    private JobRepository jobRepository;
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
+
+    @Autowired
     private EmployeeRepository employeeRepository;
+
 
     public Employee findEmployeeById(int id){
         return this.employeeRepository.findById(id).get();
     }
 
-    public List<Employee> findAllEmployee(){
+    public List<Employee> findAllEmployees(){
         return this.employeeRepository.findAll();
     }
 
     public EmployeeDto findEmployeeDtoById(int id){
-        Employee employee = findEmployeeById(id);
+        Employee employee = employeeRepository.findById(id).get();
         ModelMapper modelMapper = new ModelMapper();
         Job job = employee.getJobCategory();
         Department department = employee.getDepartment();
@@ -41,7 +50,7 @@ public class EmployeeService {
     }
 
     public List<EmployeeDto> findAllEmployeeDto(){
-        List<Employee> employeeList = findAllEmployee();
+        List<Employee> employeeList = findAllEmployees();
         List<EmployeeDto> employeeDtoList = new ArrayList<>();
         ModelMapper modelMapper = new ModelMapper();
         for(Employee employee: employeeList){
@@ -57,21 +66,84 @@ public class EmployeeService {
         return employeeDtoList;
     }
 
-    public Employee saveEmployee(Employee employee, int jobCategory, int department){
-        DepartmentService departmentService = new DepartmentService();
-        JobService jobService = new JobService();
-        employee.setJobCategory(jobService.findJobById(jobCategory));
-        employee.setDepartment(departmentService.findDepartmentById(department));
+    public List<Employee> getAllEmployeesByDepartment(int idDepartment){
+        List<Employee> employeeList = findAllEmployees();
+        List<Employee> employeesListByDepartment = new ArrayList<>();
+        Department department = departmentRepository.findById(idDepartment).get();
+        for(Employee employee: employeeList){
+            if(employee.getDepartment()==department){
+                employeesListByDepartment.add(employee);
+            }
+        }
+        return employeesListByDepartment;
+    }
+
+    public List<Employee> getAllEmployeesByJob(int idJob){
+        List<Employee> employeeList = findAllEmployees();
+        List<Employee> employeesListByJob = new ArrayList<>();
+        Job job = jobRepository.findById(idJob).get();
+        for(Employee employee: employeeList){
+            if(employee.getJobCategory()==job){
+                employeesListByJob.add(employee);
+            }
+        }
+        return employeesListByJob;
+    }
+
+    public Employee saveEmployee(Employee employee){
         return this.employeeRepository.save(employee);
     }
 
-    public Employee updateEmployee(int id, Employee employee, int jobId, int departmentId){
-        DepartmentService departmentService = new DepartmentService();
-        JobService jobService = new JobService();
+    public Employee addEmployee2(Employee employee, int idDepartment, int idJobCategory){
+        employee.setJobCategory(jobRepository.findById(idJobCategory).get());
+        employee.setDepartment(departmentRepository.findById(idDepartment).get());
+        return this.employeeRepository.save(employee);
+    }
+
+    public Employee updateEmployee(int id, Employee employee){
+        Employee employee1 = employeeRepository.findById(id).get();
+        employee1.setFirstName(employee.getFirstName());
+        employee1.setLastName(employee.getLastName());
+        employee1.setJobCategory(employee.getJobCategory());
+        employee1.setDepartment(employee.getDepartment());
+        employee1.setManager(employee.isManager());
+        employee1.setStartDate(employee.getStartDate());
+        employee1.setEndDate(employee.getEndDate());
+        employee1.setActive(employee.isActive());
+        employee1.setAddress(employee.getAddress());
+        employee1.setEmail(employee.getEmail());
+        employee1.setTelephone(employee.getTelephone());
+        employee1.setPostalCode(employee.getPostalCode());
+        employee1.setBirthday(employee.getBirthday());
+        employee1.setNoChildern(employee.getNoChildern());
+        employee1.setStudies(employee.getStudies());
+        employee1.setSalary(employee.getSalary());
+        employee1.setSocialSecurityNumber(employee.getSocialSecurityNumber());
+        employee1.setHasDrivingLicense(employee.isHasDrivingLicense());
+        employeeRepository.save(employee1);
+        return employee1;
+    }
+
+    public Employee updateEmployee2(int id, Employee employee, int jobId, int departmentId){
         Employee employee1 = findEmployeeById(id);
-        employee1 = employee;
-        employee1.setJobCategory(jobService.findJobById(jobId));
-        employee1.setDepartment(departmentService.findDepartmentById(departmentId));
+        employee1.setFirstName(employee.getFirstName());
+        employee1.setLastName(employee.getLastName());
+        employee1.setJobCategory(jobRepository.findById(jobId).get());
+        employee1.setDepartment(departmentRepository.findById(departmentId).get());
+        employee1.setManager(employee.isManager());
+        employee1.setStartDate(employee.getStartDate());
+        employee1.setEndDate(employee.getEndDate());
+        employee1.setActive(employee.isActive());
+        employee1.setAddress(employee.getAddress());
+        employee1.setEmail(employee.getEmail());
+        employee1.setTelephone(employee.getTelephone());
+        employee1.setPostalCode(employee.getPostalCode());
+        employee1.setBirthday(employee.getBirthday());
+        employee1.setNoChildern(employee.getNoChildern());
+        employee1.setStudies(employee.getStudies());
+        employee1.setSalary(employee.getSalary());
+        employee1.setSocialSecurityNumber(employee.getSocialSecurityNumber());
+        employee1.setHasDrivingLicense(employee.isHasDrivingLicense());
         employeeRepository.save(employee1);
         return employee1;
     }

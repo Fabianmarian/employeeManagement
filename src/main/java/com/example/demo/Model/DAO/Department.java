@@ -4,6 +4,7 @@ package com.example.demo.Model.DAO;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class Department {
 
     @Column(name="name_departments")
     @NotNull
+    @Size(min=1)
     private String name;
 
     //@OneToMany(mappedBy = "department", fetch = FetchType.LAZY)

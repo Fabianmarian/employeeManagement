@@ -9,29 +9,32 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("api/department")
+@RequestMapping("api/departments")
 public class DepartmentController {
 
     @Autowired
     private DepartmentService departmentService;
 
-    @GetMapping("/findDepartmentById/{id}")
+
+    @GetMapping("/getDepartmentById/{id}")
     public ResponseEntity<Department> findDepartmentById(@PathVariable int id){
         Department department = this.departmentService.findDepartmentById(id);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Response", "Department found");
-        return ResponseEntity.status(HttpStatus.CREATED).headers(httpHeaders).body(department);
+        return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(department);
     }
 
-    @GetMapping("/findAllDepartments")
+    @GetMapping("/getAllDepartments")
     public ResponseEntity<List<Department>> getAllDepartments(){
         List<Department> departments = this.departmentService.findAllDepartments();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Response", "List created");
-        return ResponseEntity.status(HttpStatus.CREATED).headers(httpHeaders).body(departments);
+        return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(departments);
     }
 
     @PostMapping("/addDepartment")
@@ -39,7 +42,7 @@ public class DepartmentController {
         Department newDepartment = this.departmentService.addDepartment(department);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Response", "addedNewDepartment");
-        return ResponseEntity.status(HttpStatus.CREATED).headers(httpHeaders).body(newDepartment);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).headers(httpHeaders).body(newDepartment);
     }
 
     @PutMapping("/updateDepartment/{id}/{name}")
@@ -47,7 +50,7 @@ public class DepartmentController {
         Department department = this.departmentService.updateDepartment(id, name);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Response", "Department updated");
-        return ResponseEntity.status(HttpStatus.CREATED).headers(httpHeaders).body(department);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).headers(httpHeaders).body(department);
     }
 
     @DeleteMapping("/deleteDepartment/{id}")

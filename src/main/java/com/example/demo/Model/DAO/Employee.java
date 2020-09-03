@@ -3,10 +3,12 @@ package com.example.demo.Model.DAO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Value;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
@@ -20,22 +22,24 @@ public class Employee {
 
     @Column(name = "firstName")
     @NotNull
+    @Size(min=1)
     private String firstName;
 
     @Column(name = "lastName")
     @NotNull
+    @Size(min=1)
     private String lastName;
 
-   // @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    @ManyToOne
     @JoinColumn(name = "jobCategoryId")
-    @NotNull
+   // @NotNull
     private Job jobCategory;
 
-    //@JsonIgnore
-    @ManyToOne
+
+    @ManyToOne()
     @JoinColumn(name = "departmentId")
-    @NotNull
+    //@NotNull
     private Department department;
 
     @Column(name = "isManager")
@@ -51,7 +55,7 @@ public class Employee {
     private LocalDate endDate;
 
     @Column(name = "isActive")
-    private boolean isActive;
+    private boolean isActive = true;
 
     @NotNull
     private String address;
@@ -70,6 +74,7 @@ public class Employee {
     @NotNull
     private LocalDate birthday;
 
+    @PositiveOrZero
     private int noChildern;
 
     @NotNull
