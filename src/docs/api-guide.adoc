@@ -1,0 +1,122 @@
+==== Employee Management Documentation
+== Departments
+=== Get requests
+.request get department by id
+include::{snippets}/getDepartmentById/http-request.adoc[]
+.response get department by id
+include::{snippets}/getDepartmentById/http-response.adoc[]
+.request get all departments
+include::{snippets}/getAllDepartments/http-request.adoc[]
+.response get all departments
+include::{snippets}/getAllDepartments/http-response.adoc[]
+
+==== Create requests
+.request add department
+include::{snippets}/createDepartment/http-request.adoc[]
+.response add department
+include::{snippets}/createDepartment/http-response.adoc[]
+.bad-request add department
+include::{snippets}/createDepartmentBadRequest/http-request.adoc[]
+.bad-response add department
+include::{snippets}/createDepartmentBadRequest/http-response.adoc[]
+
+=== Update requests
+.request update department name
+include::{snippets}/updateDepartment/http-request.adoc[]
+.response update department name
+include::{snippets}/updateDepartment/http-response.adoc[]
+
+=== Delete requests
+.request delete department
+include::{snippets}/deleteDepartment/http-request.adoc[]
+.response delete department
+include::{snippets}/deleteDepartment/http-response.adoc[]
+
+== Jobs
+=== Get requests
+.request get job by id
+include::{snippets}/getJobById/http-request.adoc[]
+.response get job by id
+include::{snippets}/getJobById/http-response.adoc[]
+
+.request get all jobs
+include::{snippets}/getAllJobs/http-request.adoc[]
+.response get all jobs
+include::{snippets}/getAllJobs/http-response.adoc[]
+
+=== Create requests
+.request add job
+include::{snippets}/createJob/http-request.adoc[]
+.response add job
+include::{snippets}/createJob/http-response.adoc[]
+.bad-request add job
+include::{snippets}/createJobBadRequest/http-request.adoc[]
+.response add job
+include::{snippets}/createJobBadRequest/http-response.adoc[]
+
+=== Update requests
+.request update job name
+include::{snippets}/updateJob/http-request.adoc[]
+.response update job name
+include::{snippets}/updateJob/http-response.adoc[]
+
+=== Delete requests
+.request delete job
+include::{snippets}/deleteJob/http-request.adoc[]
+.response delete job
+include::{snippets}/deleteJob/http-response.adoc[]
+
+== Employees
+=== Get requests
+.request get employee by id
+include::{snippets}/getEmployeeById/http-request.adoc[]
+.response get employee by id
+include::{snippets}/getEmployeeById/http-response.adoc[]
+
+.request get all employees
+include::{snippets}/getAllEmployees/http-request.adoc[]
+.response get all employees
+include::{snippets}/getAllEmployees/http-response.adoc[]
+
+.request get employee dto by id
+include::{snippets}/getEmployeeDtoById/http-request.adoc[]
+.response get employee dto by id
+include::{snippets}/getEmployeeDtoById/http-response.adoc[]
+
+.request get all employees dto
+include::{snippets}/getAllEmployeesDto/http-request.adoc[]
+.response get all employees dto
+include::{snippets}/getAllEmployeesDto/http-response.adoc[]
+
+.request get all employees by department
+include::{snippets}/getAllEmployeesByDepartment/http-request.adoc[]
+.response get all employees by department
+include::{snippets}/getAllEmployeesByDepartment/http-response.adoc[]
+
+.request get all employees by job
+include::{snippets}/getAllEmployeesByJob/http-request.adoc[]
+.response get all employees by job
+include::{snippets}/getAllEmployeesByJob/http-response.adoc[]
+
+=== Create requests
+.request add employee
+include::{snippets}/createEmployee/http-request.adoc[]
+.response add employee
+include::{snippets}/createEmployee/http-response.adoc[]
+.bad-request add employee
+include::{snippets}/createJobBadRequest/http-request.adoc[]
+.bad-response add employee
+include::{snippets}/createJobBadRequest/http-response.adoc[]
+
+=== Update requests
+.request update employee
+include::{snippets}/updateEmployee/http-request.adoc[]
+.response update employee
+include::{snippets}/updateEmployee/http-response.adoc[]
+
+=== Delete requests
+.request delete employee
+include::{snippets}/employeeDelete/http-request.adoc[]
+.response delete employee
+include::{snippets}/employeeDelete/http-response.adoc[]
+

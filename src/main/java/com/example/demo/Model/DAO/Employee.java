@@ -31,13 +31,13 @@ public class Employee {
     private String lastName;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "jobCategoryId")
    // @NotNull
     private Job jobCategory;
 
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "departmentId")
     //@NotNull
     private Department department;

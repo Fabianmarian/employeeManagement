@@ -39,7 +39,7 @@ public class JobController {
         Job newJob = this.jobService.addJob(job);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Response", "addedNewJob");
-        return ResponseEntity.status(HttpStatus.ACCEPTED).headers(httpHeaders).body(newJob);
+        return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(newJob);
     }
 
     @PutMapping("/updateJob/{id}/{name}")
@@ -47,7 +47,7 @@ public class JobController {
         Job job = this.jobService.updateJob(id, name);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Response", "Job updated");
-        return ResponseEntity.status(HttpStatus.ACCEPTED).headers(httpHeaders).body(job);
+        return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(job);
     }
 
     @DeleteMapping("/deleteJobCategory/{id}")

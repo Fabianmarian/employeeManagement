@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Model.DAO.Department;
+import com.example.demo.Repository.DepartmentRepository;
 import com.example.demo.Service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -20,10 +21,13 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
+    private DepartmentRepository departmentRepository;
+
 
     @GetMapping("/getDepartmentById/{id}")
     public ResponseEntity<Department> findDepartmentById(@PathVariable int id){
         Department department = this.departmentService.findDepartmentById(id);
+        //Department department = this.departmentRepository.findById(id).get();
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Response", "Department found");
         return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(department);

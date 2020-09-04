@@ -74,7 +74,7 @@ public class EmployeeController {
         Employee newEmployee = this.employeeService.saveEmployee(employee);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Response", "addedNewEmployee");
-        return ResponseEntity.status(HttpStatus.ACCEPTED).headers(httpHeaders).body(newEmployee);
+        return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(newEmployee);
     }
 
     @PostMapping("/addEmployee2/{idDepartment}/{idJobCategory}")
@@ -90,7 +90,7 @@ public class EmployeeController {
         Employee employeeUpdated = this.employeeService.updateEmployee(id, employee);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Response", "Employee updated");
-        return ResponseEntity.status(HttpStatus.ACCEPTED).headers(httpHeaders).body(employeeUpdated);
+        return ResponseEntity.status(HttpStatus.OK).headers(httpHeaders).body(employeeUpdated);
     }
 
     @PutMapping("/updateEmployee2/{id}/{jobId}/{departmentId}")
